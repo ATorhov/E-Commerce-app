@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    //
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException ex) {
         var errors = new HashMap<String, String>();
