@@ -1,9 +1,7 @@
 package com.torhoff.ecommerce.customer;
 
 import jakarta.validation.Valid;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
     private final CustomerService customerService;
+
 
     @PostMapping
     public ResponseEntity<String> createCustomer(
-            @RequestBody @Valid CustomerRequest request
+            @RequestBody @Valid com.torhoff.ecommerce.customer.CustomerRequest request
     ) {
         return ResponseEntity.ok(customerService.createCustomer(request));
     }
@@ -33,7 +31,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerResponse>> findAll() {
+    public ResponseEntity<List<com.torhoff.ecommerce.customer.CustomerResponse>> findAll() {
         return ResponseEntity.ok(customerService.findAllCustomers());
     }
 
@@ -60,3 +58,4 @@ public class CustomerController {
     }
 
 }
+

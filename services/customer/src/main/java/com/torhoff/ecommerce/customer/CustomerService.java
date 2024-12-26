@@ -1,5 +1,6 @@
 package com.torhoff.ecommerce.customer;
 
+import com.torhoff.ecommerce.customer.CustomerMapper;
 import com.torhoff.ecommerce.exception.CustomerNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,12 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper mapper;
 
-    public String createCustomer(@Valid CustomerRequest request) {
+    public String createCustomer(@Valid com.torhoff.ecommerce.customer.CustomerRequest request) {
         var customer = customerRepository.save(mapper.toCustomer(request));
         return customer.getId();
     }
 
-    public void updateCustomer(@Valid CustomerRequest request) {
+    public void updateCustomer(@Valid com.torhoff.ecommerce.customer.CustomerRequest request) {
         var customer = customerRepository.findById(request.id()).orElseThrow(() -> new CustomerNotFoundException(
                 format("Customer with id %s not found", request.id())
         ));
@@ -31,7 +32,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    private void mergeCustomer(Customer customer,  CustomerRequest request) {
+    private void mergeCustomer(Customer customer, CustomerRequest request) {
         if (StringUtils.isNotBlank(request.firstName())){
             customer.setFirstName(request.firstName());
         }
@@ -46,7 +47,7 @@ public class CustomerService {
         }
     }
 
-    public List<CustomerResponse> findAllCustomers() {
+    public List<com.torhoff.ecommerce.customer.CustomerResponse> findAllCustomers() {
         return customerRepository.findAll()
                 .stream()
                 .map(mapper::fromCustomer)
