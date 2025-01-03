@@ -5,6 +5,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -27,6 +28,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 @RequiredArgsConstructor
 @Slf4j
 public class EmailService {
+
 
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
@@ -95,9 +97,9 @@ public class EmailService {
 
             messageHelper.setTo(destinationEmail);
             mailSender.send(mimeMessage);
-            log.info(String.format("INFO - Email successfully sent to %s with template %s", destinationEmail, htmlTemplate));
+            log.info("INFO - Email successfully sent to {} with template {}", destinationEmail, htmlTemplate);
         } catch (MessagingException e) {
-            log.warn("WARNING - Could not send email to " + destinationEmail, e);
+            log.warn("WARNING - Could not send email to {}", destinationEmail, e);
         }
     }
 }

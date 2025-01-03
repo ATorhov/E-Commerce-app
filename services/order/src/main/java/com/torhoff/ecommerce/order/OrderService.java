@@ -47,7 +47,7 @@ public class OrderService {
             );
         }
         var paymentRequest = new PaymentRequest(
-                request.amounts(),
+                request.totalAmount(),
                 request.paymentMethod(),
                 order.getId(),
                 order.getReference(),
@@ -59,7 +59,7 @@ public class OrderService {
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
                         request.reference(),
-                        request.amounts(),
+                        request.totalAmount(),
                         request.paymentMethod(),
                         customer,
                         purchasedProducts
